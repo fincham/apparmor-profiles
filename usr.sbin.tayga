@@ -1,0 +1,13 @@
+#include <tunables/global>
+/usr/sbin/tayga flags=(attach_disconnected) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  capability setuid,
+  capability setgid,
+
+  /etc/tayga.conf r,
+  /var/spool/tayga/* rw,
+  /run/tayga.pid w,
+  /dev/net/tun rw,
+}
