@@ -15,7 +15,6 @@
   #include <abstractions/nameservice>
   #include <abstractions/gstreamer>
 
-  # doesn't make any difference to functionality, silence noisy alerts
   deny /proc/filesystems r,
 
   owner @{HOME}/.config/Clementine/Clementine.conf rk,
@@ -27,7 +26,6 @@
   owner /proc/*/cmdline r,
   owner /proc/*/fd/ r,
   owner /proc/*/mounts r,
-  /etc/ld.so.preload r,
 
   /usr/lib{,32,64}/*/gstreamer*/gstreamer-*/gst-plugin-scanner Cx -> gst_plugin_scanner,
 
@@ -39,6 +37,5 @@
     #include <abstractions/base>
     /usr/lib{,32,64}/*/gstreamer*/gstreamer-*/gst-plugin-scanner mr,
     /usr/lib{,32,64}/*/libgstreamer-*.so.* mr,
-    /etc/ld.so.preload r,
   }
 }
