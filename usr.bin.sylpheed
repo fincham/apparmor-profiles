@@ -1,0 +1,56 @@
+# Prepared by Michael Fincham <michael@hotplate.co.nz>
+#
+# This is a mostly automated config, needs a bunch of tidying yet. Works against Sylpheed in Debian Stretch and Jessie.
+
+#include <tunables/global>
+/usr/bin/sylpheed {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/enchant>
+  #include <abstractions/aspell>
+  #include <abstractions/gnome>
+  #include <abstractions/user-mail>
+
+  /var/{,spool/}mail/         r,
+  /var/{,spool/}mail/*        rwlk,
+
+
+  owner @{HOME}/Public/ r,
+  owner @{HOME}/Public/* r,
+
+  /tmp/sylpheed-1000 w,
+  /etc/fonts/** r,
+  /etc/mime.types r,
+  /etc/ssl/certs/ca-certificates.crt r,
+  /home/*/.Xauthority r,
+  /home/*/.fontconfig/* r,
+  /home/*/.gtkrc-2.0 r,
+  /home/*/.icons/ r,
+  /home/*/.local/share/icons/ r,
+  /home/*/.sylpheed-2.0/** rw,
+  /home/*/.themes/** r,
+  /home/*/Mail/** lrw,
+  /usr/bin/bogofilter Ux,
+  /usr/bin/dbus-launch Ux,
+  /usr/bin/notify-send Ux,
+  /usr/bin/gpg Ux,
+  /usr/bin/gpg2 Ux,
+  /usr/bin/gpgconf Ux,
+  /usr/bin/xdg-open Ux,
+  /usr/lib/pango/** mr,
+  /usr/bin/sylpheed mr,
+  /usr/lib/x86_64-linux-gnu/sylpheed/plugins/ mr,
+  /usr/share/icons/ r,
+  /usr/share/locale/** r,
+  /usr/share/pixmaps/ r,
+  /usr/share/fonts/** r,
+  /usr/share/icons/ r,
+  /usr/share/icons/** r,
+  /usr/share/locale-langpack/** r,
+  /usr/share/mime/mime.cache r,
+  /usr/share/pixmaps/ r,
+  /usr/share/themes/** r,
+  /var/cache/fontconfig/* r,
+  /var/lib/dbus/machine-id r,
+  /var/lib/defoma/fontconfig.d/fonts.conf r,
+}
