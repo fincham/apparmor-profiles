@@ -1,9 +1,12 @@
 # Prepared by Michael Fincham <michael@hotplate.co.nz>
-# Tested against the 64 bit "version 14" of the Spotify 'blob', as downloaded by Clementine 1.2.3 included in Debian Jessie
+# Tested against the 64 bit "version 14" of the Spotify 'blob', as downloaded by Clementine 1.2.3 included in Debian Jessie,
+# and "version 16", as downloaded by Clementine 1.3.1 in Debian Stretch
 #
 # sha256sums of tested versions:
-# 0ec3ba1574b16d52949b7f3974786cc68b26505a7dcdf17c894d7477fc9a2d05  blob
-# c196099f5344e4c617bf403c693b97e3aeb49ae4747970e9fd1be52de88576f2  libspotify.so.12
+# 0ec3ba1574b16d52949b7f3974786cc68b26505a7dcdf17c894d7477fc9a2d05  blob (version 14)
+# c196099f5344e4c617bf403c693b97e3aeb49ae4747970e9fd1be52de88576f2  libspotify.so.12 (version 14)
+# ca607579ce69e25d5e2e25f6da76bb0bedccbfe7f2e1f1ca67c76ba734c95b34  blob (version 16)
+# fa146160bbf3a104394b5495022e65cc56a4dec53cc3174f5f22d71c18d2c3e5  libspotify.so.12 (version 16)
 #
 # Caveats:
 # The /home/*/.config... path below may need to be adjusted for more exotic $HOME locations.
@@ -16,6 +19,7 @@
   #include <abstractions/gstreamer>
 
   deny /proc/filesystems r,
+  deny /dev/ r,
 
   owner @{HOME}/.config/Clementine/Clementine.conf rk,
   owner @{HOME}/.config/Clementine/spotify-cache/** rw,
@@ -28,13 +32,16 @@
   owner /proc/*/mounts r,
 
   /usr/lib{,32,64}/*/gstreamer*/gstreamer-*/gst-plugin-scanner Cx -> gst_plugin_scanner,
-
+  
   # this is a bit annoying but denying it makes the plugin scanner do weird things
   owner @{HOME}/.gstreamer-*/registry.*.bin rw,
   owner @{HOME}/.gstreamer-*/registry.*.bin.* rw,
+  owner @{HOME}/.cache/gstreamer-*/registry.*.bin rw,
+  owner @{HOME}/.cache/gstreamer-*/registry.*.bin.* rw,
 
   profile gst_plugin_scanner {
     #include <abstractions/base>
+    deny /dev/ r,
     /usr/lib{,32,64}/*/gstreamer*/gstreamer-*/gst-plugin-scanner mr,
     /usr/lib{,32,64}/*/libgstreamer-*.so.* mr,
   }
